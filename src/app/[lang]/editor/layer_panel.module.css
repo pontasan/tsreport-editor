@@ -1,0 +1,180 @@
+.panel {
+    padding: 0.5rem;
+}
+
+.panelHeader {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #333333;
+    padding: 0.25rem 0;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.tree {
+    font-size: 0.75rem;
+}
+
+/* Band. */
+
+.bandNode {
+    margin-bottom: 0.125rem;
+}
+
+.bandItem {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.375rem;
+    border-radius: 0.1875rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.bandItem:hover {
+    background-color: #e9ecef;
+}
+
+.bandColorDot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 0.125rem;
+    flex-shrink: 0;
+}
+
+.bandName {
+    flex: 1 1 auto;
+    font-weight: 500;
+    color: #333333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bandHeight {
+    flex-shrink: 0;
+    font-size: 0.625rem;
+    color: #999999;
+}
+
+/* Element. */
+
+.elementList {
+    padding-left: 1rem;
+}
+
+.elementItem {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.1875rem 0.375rem;
+    border-radius: 0.1875rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.elementItem:hover {
+    background-color: #e9ecef;
+}
+
+.elementIcon {
+    font-size: 0.625rem;
+    color: #888888;
+    flex-shrink: 0;
+    width: 0.75rem;
+    text-align: center;
+}
+
+.elementName {
+    flex: 1 1 auto;
+    color: #555555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Selectionstate. */
+
+.selected {
+    background-color: #d0e1ff;
+}
+
+.selected:hover {
+    background-color: #c0d5f5;
+}
+
+.selected .bandName,
+.selected .elementName {
+    color: #1565C0;
+}
+
+/* Inflate. */
+
+.expandToggle {
+    flex-shrink: 0;
+    width: 0.75rem;
+    font-size: 0.5rem;
+    color: #888888;
+    cursor: pointer;
+    text-align: center;
+    line-height: 1;
+}
+
+.expandPlaceholder {
+    flex-shrink: 0;
+    width: 0.75rem;
+}
+
+/* (bandheaderfor) */
+
+.dropTarget {
+    outline: 2px solid #2196F3;
+    outline-offset: -2px;
+    background-color: #e3f2fd;
+}
+
+.dropTarget:hover {
+    background-color: #bbdefb;
+}
+
+/* : top. */
+
+.dropBefore {
+    position: relative;
+}
+
+.dropBefore::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #2196F3;
+    z-index: 1;
+}
+
+/* : bottom. */
+
+.dropAfter {
+    position: relative;
+}
+
+.dropAfter::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #2196F3;
+    z-index: 1;
+}
+
+/* Frame to. */
+
+.dropInside {
+    outline: 2px solid #2196F3;
+    outline-offset: -2px;
+    background-color: #e3f2fd;
+}

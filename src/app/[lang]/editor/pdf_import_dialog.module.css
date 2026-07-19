@@ -1,0 +1,398 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dropZone {
+    border: 1px dashed #9ca3af;
+    border-radius: 6px;
+    padding: 1rem;
+    background: #f9fafb;
+}
+
+.dropZoneActive {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.hiddenFileInput {
+    display: none;
+}
+
+.filePicker {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+}
+
+.selectedFile {
+    overflow: hidden;
+    min-width: 0;
+    color: #374151;
+    font-size: 0.82rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dropZoneHint {
+    margin: 0.5rem 0 0;
+    font-size: 0.78rem;
+    color: #6b7280;
+}
+
+.stepHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-weight: 600;
+}
+
+.pageGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+    gap: 0.5rem;
+}
+
+.pageButton {
+    height: 4rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+    cursor: pointer;
+    font: inherit;
+}
+
+.pageButtonSelected {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.fontTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.fontTable th,
+.fontTable td {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0.45rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.fontSelect {
+    width: 100%;
+}
+
+.warning {
+    color: #b45309;
+}
+
+.summary {
+    margin: 0;
+    color: #374151;
+}
+
+.importProgress {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 0 0 auto;
+    margin-bottom: 1rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.16);
+}
+
+.progressHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.82rem;
+    color: #374151;
+}
+
+.progressTrack {
+    height: 0.45rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e5e7eb;
+}
+
+.progressBar {
+    height: 100%;
+    border-radius: inherit;
+    background: #2563eb;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 75%, transparent 75%, transparent);
+    background-size: 1rem 1rem;
+    animation: pdfImportProgressMove 900ms linear infinite;
+    transition: width 120ms linear;
+}
+
+@keyframes pdfImportProgressMove {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 1rem 0;
+    }
+}
+
+.dialogContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.columns {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.columns > :first-child {
+    flex: 0 0 30rem;
+    min-width: 0;
+    overflow-y: auto;
+}
+
+.previewFit {
+    flex: 1 1 auto;
+    align-self: stretch;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 8px;
+    background: #e5e7eb;
+    border-radius: 6px;
+}
+
+.previewPane {
+    position: relative;
+    flex: 0 0 auto;
+    border: 1px solid #9ca3af;
+    overflow: hidden;
+    line-height: 0;
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.previewContent {
+    position: absolute;
+    line-height: 0;
+}
+
+.previewMarginGuide {
+    position: absolute;
+    border: 1px dashed #b6bcc8;
+    pointer-events: none;
+}
+
+.previewCanvas {
+    display: block;
+}
+
+.previewLoading {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: normal;
+    pointer-events: none;
+}
+
+.regionOverlay {
+    position: absolute;
+    inset: 0;
+}
+
+.regionStrip {
+    position: absolute;
+    left: 0;
+    right: 0;
+    opacity: 0.28;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.regionLabel {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    padding: 0 0.3rem;
+    font-size: 0.7rem;
+    line-height: 1.2rem;
+    border-radius: 3px;
+    opacity: 1;
+    white-space: nowrap;
+}
+
+.regionBoundary {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 7px;
+    margin-top: -3px;
+    cursor: row-resize;
+    background: transparent;
+}
+
+.regionBoundary:hover {
+    background: rgba(37, 99, 235, 0.35);
+}
+
+.destinationOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+}
+
+.destinationOption {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: baseline;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.destinationNote {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.previewColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+}
+
+.modeButtons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.sliceHint {
+    margin: 0;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: #6b7280;
+}
+
+.sliceOverlay {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.sliceBackdrop {
+    fill: transparent;
+    cursor: crosshair;
+}
+
+.sliceTintImage {
+    fill: rgba(59, 130, 246, 0.18);
+    stroke: rgba(37, 99, 235, 0.65);
+    stroke-dasharray: 4 3;
+    pointer-events: none;
+}
+
+.sliceTintPath {
+    fill: rgba(168, 85, 247, 0.14);
+    stroke: rgba(147, 51, 234, 0.5);
+    stroke-dasharray: 4 3;
+    pointer-events: none;
+}
+
+.slicePiece {
+    fill: rgba(34, 197, 94, 0.08);
+    stroke: #059669;
+    stroke-dasharray: 5 3;
+    pointer-events: none;
+}
+
+.slicePieceDisabled {
+    fill: rgba(107, 114, 128, 0.55);
+    stroke: #374151;
+    stroke-dasharray: 5 3;
+    pointer-events: none;
+}
+
+.slicePieceHandle {
+    fill: #ffffff;
+    stroke: #059669;
+    cursor: pointer;
+}
+
+.slicePieceHandleOff {
+    fill: #6b7280;
+    stroke: #374151;
+    cursor: pointer;
+}
+
+.sliceLine {
+    stroke: #ea580c;
+    pointer-events: none;
+}
+
+.sliceLineSelected {
+    stroke: #dc2626;
+    pointer-events: none;
+}
+
+.sliceHandle {
+    fill: #ffffff;
+    stroke: #ea580c;
+    cursor: move;
+}
+
+.sliceHandleSelected {
+    fill: #fee2e2;
+    stroke: #dc2626;
+    cursor: move;
+}
+
+.bandToggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-top: 0.6rem;
+}
+
+.bandToggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.bandChip {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}

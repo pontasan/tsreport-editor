@@ -1,0 +1,72 @@
+services:
+  tsreport_editor_db:
+    build: ../db/
+    image: tsreport_editor_db:1.0
+    init: true
+    user: "54321:54321"
+    volumes:
+      - ../db/pgdata:/var/pgdata
+      - ../db/ddl:/var/ddl
+    ports:
+      - "52437:15432"
+    networks:
+      tsreport_editor_net:
+    environment:
+      - PGDATA=/var/pgdata/data
+      - DB_NAME=TSREPORT_EDITOR_DB
+      - DB_PORT=15432
+      - DB_PASS=postgres1234
+    shm_size: 1.2gb
+  tsreport_editor_node:
+    build: ../node/
+    image: tsreport_editor_node:1.0
+    user: "node"
+    working_dir: /var/node
+    init: true
+    ports:
+      - "52005:3000"
+      - "52006:52006"
+      - "52007:52007"
+    networks:
+      tsreport_editor_net:
+    volumes:
+      - ./web/dist/standalone:/var/node
+      - ../nfs:/var/nfs
+    env_file:
+      - ./web/.env
+    environment:
+      - DB_HOST=tsreport_editor_db
+      - DB_PORT=15432
+    command: "bash -c 'pm2 list && pm2 start --no-daemon'"
+    depends_on:
+      - tsreport_editor_db
+  tsreport_editor_cron:
+    build: ../crond/
+    image: tsreport_editor_cron:1.0
+    init: true
+    networks:
+      tsreport_editor_net:
+    volumes:
+      - ../crond/schedule.txt:/var/crond/schedule.txt:ro
+    env_file:
+      - ./web/.env
+    depends_on:
+      - tsreport_editor_node
+  tsreport_editor_nginx:
+    build: ../nginx/
+    image: tsreport_editor_nginx:1.0
+    init: true
+    ports:
+      - "52085:80"
+      - "52448:443"
+    networks:
+      tsreport_editor_net:
+    volumes:
+      - ../nginx/cert:/var/cert
+      - ../nginx/conf:/var/config
+      - ../../logs/nginx:/var/log/nginx
+      - ../nfs:/var/nfs
+    depends_on:
+      - tsreport_editor_node
+networks:
+  tsreport_editor_net:

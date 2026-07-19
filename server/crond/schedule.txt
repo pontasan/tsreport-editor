@@ -1,0 +1,15 @@
+# Report print online batch trigger.
+#
+# Purpose: report print requests submitted through the report API are queued as
+# PrintRequest rows rather than rendered inline. This entry periodically pokes the
+# API server so it drains that queue -- rendering each queued request to a PDF and
+# flipping its status -- giving asynchronous, near-real-time print processing.
+#
+# crond granularity is one minute, so the entry fires once per minute and fans
+# out six background triggers at 0/10/20/30/40/50s offsets to reach an effective
+# 10-second cadence. --max-time bounds each request so a stalled call cannot pile
+# up across ticks; overlap is otherwise safe because the API server serializes
+# processing with a BatchLock (SELECT FOR UPDATE NOWAIT). Job output is redirected
+# to the container stdout (PID 1) so results and errors appear in `docker logs`.
+
+* * * * * for i in $(seq 0 10 59); do (sleep "$i"; curl -sS --max-time 8 -X POST -H "x-report-batch-token: $REPORT_BATCH_TOKEN" http://tsreport_editor_node:3000/api/report/batch/process) & done > /proc/1/fd/1 2>&1

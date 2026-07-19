@@ -1,0 +1,8 @@
+*
+!/workspaces
+!/download
+!/upload
+!/dataload
+!/sample
+!/tmp
+!.gitignore

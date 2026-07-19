@@ -1,0 +1,530 @@
+.canvasContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 1.25rem;
+}
+
+.pageWrapper {
+    display: flex;
+    min-width: max-content;
+}
+
+.page {
+    position: relative;
+    /* Centers when the page fits; keeps both edges scroll-reachable when it overflows */
+    margin: 0 auto;
+    background-color: #ffffff;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+.marginGuide {
+    position: absolute;
+    border: 1px dashed #c0c0c0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bandsContainer {
+    position: relative;
+    z-index: 1;
+}
+
+.band.backgroundBand {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.band.foregroundBand {
+    z-index: 1;
+}
+
+.backgroundSelectionOutline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    outline: 2px solid #2196F3;
+    outline-offset: -2px;
+    pointer-events: none;
+}
+
+.backgroundToolInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    cursor: crosshair;
+}
+
+.backgroundSelectionInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+}
+
+.backgroundElementInteraction {
+    position: absolute;
+    z-index: 4;
+    border: 2px solid #2196F3;
+    box-sizing: border-box;
+    cursor: move;
+}
+
+.backgroundElementEdgeHover,
+.backgroundElementEdgeHover * {
+    cursor: move !important;
+}
+
+.backgroundTransformedPathSelectionOverlay {
+    z-index: 4;
+}
+
+.gridOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.12) 1px, transparent 1px),
+        linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-position: 0 0, 0 0, 0 0, 0 0;
+}
+
+/* Band. */
+.band {
+    position: relative;
+}
+
+.bandContent {
+    position: relative;
+}
+
+.bandSelected {
+    outline: 2px solid #2196F3;
+    outline-offset: -2px;
+}
+
+.bandTint {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Band name, shown as faint bold text centered in the band area. */
+.bandLabel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.12);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+/* Band boundary line and resize handle. */
+.bandBorder {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    cursor: ns-resize;
+    user-select: none;
+    background-color: transparent;
+    border-bottom: 1px dashed rgba(204, 204, 204, 0.6);
+    z-index: 2;
+}
+
+.bandBorder:hover {
+    background-color: rgba(33, 150, 243, 0.3);
+}
+
+/* Resize handle. */
+.resizeHandle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #2196F3;
+    border: 1px solid #ffffff;
+    z-index: 10;
+}
+
+.pathEditOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 18;
+}
+
+.pathEditSvg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.pathHandleLine {
+    stroke: rgba(37, 99, 235, 0.65);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+}
+
+.pathSegmentHitArea {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 10;
+    pointer-events: stroke;
+    cursor: copy;
+}
+
+.pathAnchor,
+.pathHandle {
+    position: absolute;
+    padding: 0;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ffffff;
+    background: #2563eb;
+    pointer-events: auto;
+    box-sizing: border-box;
+}
+
+.pathAnchor {
+    width: 9px;
+    height: 9px;
+    cursor: move;
+}
+
+.pathHandle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    cursor: crosshair;
+}
+
+.pathAnchorActive,
+.pathHandleActive {
+    background: #dc2626;
+}
+
+.transformedPathSelectionOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 19;
+}
+
+.transformedPathSelectionHalo,
+.transformedPathSelectionOutline {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+}
+
+.transformedPathSelectionHalo {
+    stroke: rgba(255, 255, 255, 0.9);
+    stroke-width: 4;
+}
+
+.transformedPathSelectionOutline {
+    stroke: #2196f3;
+    stroke-width: 2;
+}
+
+.penDraftOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 19;
+}
+
+.penDraftSvg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: visible;
+}
+
+.penDraftPath {
+    fill: none;
+    stroke: #2563eb;
+    stroke-width: 1.5;
+    stroke-dasharray: 4 3;
+    vector-effect: non-scaling-stroke;
+}
+
+.penDraftAnchor {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ffffff;
+    background: #2563eb;
+    box-sizing: border-box;
+}
+
+.penDraftStartAnchor {
+    background: #16a34a;
+}
+
+/* Creation preview rectangle. */
+.creationPreview {
+    position: absolute;
+    border: 1px dashed #2196F3;
+    background-color: rgba(33, 150, 243, 0.1);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Marquee selection rectangle. */
+.marqueeSelection {
+    position: absolute;
+    border: 1px dashed #2196F3;
+    background-color: rgba(33, 150, 243, 0.08);
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* Inline editor. */
+.inlineEditor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: 2px solid #2196F3;
+    background-color: #ffffff;
+    padding: 2px;
+    resize: none;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 15;
+}
+
+/* Element. */
+.elementText {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    pointer-events: none;
+}
+
+.tableColumnSelectors {
+    position: absolute;
+    top: 0;
+    transform: translateY(-100%);
+    left: 0;
+    right: 0;
+    height: 1.125rem;
+    z-index: 12;
+}
+
+.tableColumnSelector {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border: none;
+    border-right: 1px solid rgba(37, 99, 235, 0.25);
+    background: rgba(219, 234, 254, 0.6);
+    font-size: 0.625rem;
+    color: #1d4ed8;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.tableColumnSelector:hover {
+    background: rgba(191, 219, 254, 0.7);
+}
+
+.tableColumnSelectorActive,
+.tableColumnSelectorActive:hover {
+    background: rgba(59, 130, 246, 0.5);
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.tableColumnHandle {
+    position: absolute;
+    width: 6px;
+    background: rgba(37, 99, 235, 0.18);
+    cursor: ew-resize;
+    z-index: 13;
+}
+
+.tableColumnHandle:hover {
+    background: rgba(37, 99, 235, 0.42);
+}
+
+.tableColumnActions {
+    position: absolute;
+    top: 0;
+    transform: translateY(calc(-100% - 1.375rem));
+    display: flex;
+    gap: 0.125rem;
+    z-index: 14;
+}
+
+.tableSectionLabel {
+    position: absolute;
+    width: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    color: #64748b;
+    pointer-events: none;
+    height: 100%;
+}
+
+.tableRowSelectors {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    width: 1.125rem;
+    bottom: 0;
+}
+
+.tableRowSelector {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(37, 99, 235, 0.25);
+    background: rgba(219, 234, 254, 0.6);
+    font-size: 0.625rem;
+    color: #1d4ed8;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.tableRowSelector:hover {
+    background: rgba(191, 219, 254, 0.7);
+}
+
+.tableRowSelectorActive,
+.tableRowSelectorActive:hover {
+    background: rgba(59, 130, 246, 0.5);
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.tableRowHandle {
+    position: absolute;
+    height: 6px;
+    background: rgba(37, 99, 235, 0.18);
+    cursor: ns-resize;
+    z-index: 13;
+}
+
+.tableRowHandle:hover {
+    background: rgba(37, 99, 235, 0.42);
+}
+
+.tableRowActions {
+    position: absolute;
+    left: 0;
+    transform: translateX(calc(-100% - 1.375rem));
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    z-index: 14;
+}
+
+.tableActionButton {
+    width: 1.375rem;
+    height: 1.375rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.25rem;
+    background: #ffffff;
+    font-size: 0.5625rem;
+    color: #334155;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.tableActionButton:hover {
+    background: #dbeafe;
+    border-color: #60a5fa;
+}
+
+.tableActionButtonDanger:hover {
+    background: #fee2e2;
+    border-color: #f87171;
+    color: #dc2626;
+}
+
+.tableCellOverlay {
+    position: absolute;
+    border: 1px solid rgba(37, 99, 235, 0.25);
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.1s, border-color 0.1s;
+}
+
+.tableCellOverlay:hover {
+    background: rgba(37, 99, 235, 0.06);
+    border-color: rgba(37, 99, 235, 0.45);
+}
+
+.tableCellOverlayActive,
+.tableCellOverlayActive:hover {
+    border: 2px solid #2563eb;
+    background: rgba(37, 99, 235, 0.22);
+}
+
+.tooltip {
+    position: fixed;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 0.375rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.12);
+    padding: 0.25rem 0.5rem;
+    z-index: 1000;
+    pointer-events: none;
+    font-size: 0.6875rem;
+    color: #333333;
+    white-space: nowrap;
+    line-height: 1.5;
+}

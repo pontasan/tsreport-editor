@@ -1,0 +1,80 @@
+.helpTooltip {
+    position: fixed;
+    width: 32rem;
+    overflow-y: auto;
+    background-color: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 0.375rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.12);
+    padding: 0.75rem;
+    z-index: 1000;
+    pointer-events: auto;
+    transition: opacity 0.15s ease-out;
+    font-family: var(--font-noto-sans);
+    font-size: 0.6875rem;
+    color: #333333;
+    line-height: 1.5;
+}
+
+.helpTitle {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.375rem;
+}
+
+.helpDescription {
+    color: #495057;
+    margin-bottom: 0.5rem;
+    white-space: pre-wrap;
+}
+
+.helpSection {
+    margin-top: 0.5rem;
+    padding-top: 0.375rem;
+    border-top: 1px solid #eeeeee;
+}
+
+.helpSectionTitle {
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: #888888;
+    margin-bottom: 0.25rem;
+}
+
+.helpTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.helpTable td {
+    padding: 0.125rem 0;
+    vertical-align: top;
+}
+
+.helpSyntax {
+    font-family: monospace;
+    font-size: 0.625rem;
+    color: #6c9bef;
+    white-space: nowrap;
+    padding-right: 0.5rem;
+}
+
+.helpRefDesc {
+    font-size: 0.625rem;
+    color: #666666;
+    white-space: pre-wrap;
+}
+
+.helpExamples {
+    margin: 0;
+    padding-left: 1rem;
+    list-style-type: disc;
+}
+
+.helpExamples li {
+    font-family: monospace;
+    font-size: 0.625rem;
+    color: #495057;
+    margin-bottom: 0.125rem;
+}

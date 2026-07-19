@@ -1,0 +1,27 @@
+services:
+  tsreport_editor_db:
+    build: ../../db/
+    image: tsreport_editor_db:1.0
+    init: true
+    user: "54321:54321"
+    volumes:
+      - ../../db/pgdata:/var/pgdata
+      - ../../db/ddl:/var/ddl
+    ports:
+      - "52437:15432"
+    networks:
+      tsreport_editor_net:
+        ipv4_address: 172.31.0.30
+    environment:
+      - PGDATA=/var/pgdata/data
+      - DB_NAME=TSREPORT_EDITOR_DB
+      - DB_PORT=15432
+      - DB_PASS=postgres1234
+    shm_size: 1.2gb
+networks:
+  tsreport_editor_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.31.0.0/24"
+          gateway: 172.31.0.1

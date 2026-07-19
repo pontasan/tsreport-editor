@@ -1,0 +1,38 @@
+/* Compact the PrimeReact DataTable to match the editor's dialog typography
+   (headers, body cells, the empty message and the paginator all at 0.75rem). */
+
+.table :global(.p-datatable-thead) > tr > th {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #495057;
+    background-color: #f8f9fa;
+    padding: 0.35rem 0.5rem;
+}
+
+.table :global(.p-datatable-tbody) > tr > td {
+    font-size: 0.75rem;
+    color: #343a40;
+    padding: 0.35rem 0.5rem;
+}
+
+.table :global(.p-datatable-emptymessage) > td {
+    font-size: 0.75rem;
+    color: #868e96;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+}
+
+.table :global(.p-paginator) {
+    font-size: 0.75rem;
+    padding: 0.25rem;
+}
+
+.table :global(.p-paginator) :global(.p-paginator-page),
+.table :global(.p-paginator) :global(.p-paginator-first),
+.table :global(.p-paginator) :global(.p-paginator-prev),
+.table :global(.p-paginator) :global(.p-paginator-next),
+.table :global(.p-paginator) :global(.p-paginator-last) {
+    min-width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.75rem;
+}

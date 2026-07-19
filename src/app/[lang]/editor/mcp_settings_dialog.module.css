@@ -1,0 +1,32 @@
+/* MCP settings specific pieces; shared table styles live in admin_table.module.css. */
+
+.settingRow {
+    grid-template-columns: 11rem 1fr;
+}
+
+.valueCell {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 0;
+}
+
+.keyText {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #4f5b66;
+}
+
+.portInput {
+    width: 8rem;
+}
+
+.globalActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+}

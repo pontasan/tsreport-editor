@@ -1,0 +1,67 @@
+.colorInputRoot {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.mainRow {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* One swatch button for every mode: a flat color chip that opens the
+   shared visual picker. */
+.swatch {
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.1875rem;
+    padding: 0;
+    flex: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* Trim the PrimeReact overlay padding around the picker */
+.pickerOverlay :global(.p-overlaypanel-content) {
+    padding: 0.75rem;
+}
+
+.modeSelect {
+    width: 5.25rem;
+    height: 1.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.1875rem;
+    font-size: 0.75rem;
+    background-color: #ffffff;
+    cursor: pointer;
+    flex: none;
+}
+
+.modeSelect:global(.p-dropdown) {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.modeSelect:global(.p-dropdown) :global(.p-dropdown-label) {
+    padding: 0 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1.6rem;
+}
+
+.modeSelect:global(.p-dropdown) :global(.p-dropdown-trigger) {
+    width: 1.5rem;
+}
+
+.valueText {
+    font-size: 0.625rem;
+    color: #666666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+

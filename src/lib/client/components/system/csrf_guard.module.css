@@ -1,0 +1,5 @@
+.dummy {
+    width: 100%;
+    /* magic number */
+    height: 100000rem;
+}

@@ -1,0 +1,15 @@
+/* User-management specific pieces; shared table styles live in admin_table.module.css. */
+
+.userRow {
+    grid-template-columns: 1fr 11rem 12rem 4rem 3rem 5rem 3rem;
+}
+
+.grantRow {
+    grid-template-columns: 13rem 1fr 3rem;
+}
+
+.grantPath {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    color: #212529;
+    overflow-wrap: anywhere;
+}

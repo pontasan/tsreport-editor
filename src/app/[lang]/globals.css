@@ -1,0 +1,181 @@
+html,
+body {
+  font-family: var(--font-noto-sans);
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.p-component {
+  font-family: var(--font-noto-sans);
+}
+
+p {
+  font-size: 1rem;
+}
+
+.p-panel {
+  border: 1px solid rgb(188, 189, 190) !important;
+}
+
+.p-panel>.p-toggleable-content>.p-panel-content {
+  overflow: auto;
+}
+
+.p-datatable-table .disableRow {
+  background-color: #d6d4d4d7 !important;
+}
+
+.p-datatable-table .disableRow:hover {
+  background-color: #cfcfcfdd !important;
+}
+
+.p-datatable-table .errorRow {
+  background-color: #f8bbd0 !important;
+}
+
+.p-datatable-table .errorRow:hover {
+  background-color: #fbafca !important;
+}
+
+.p-datatable-table .blueRow {
+  background-color: #cae6fb !important;
+}
+
+.p-datatable-table .blueRow:hover {
+  background-color: #b0dcfe !important;
+}
+
+.p-datatable-table .greenRow {
+  background-color: #d7ffd7 !important;
+}
+
+.p-datatable-table .greenRow:hover {
+  background-color: #c1ffc1 !important;
+}
+
+.p-datatable-table .yellowRow {
+  background-color: #feffae !important;
+}
+
+.p-datatable-table .yellowRow:hover {
+  background-color: rgb(249, 251, 135) !important;
+}
+
+.p-datatable-table .todaysRow {
+  background-color: rgb(232, 242, 251) !important;
+}
+
+.p-datatable-table .holidaysRow {
+  background-color: rgb(246, 245, 245) !important;
+}
+
+/* PrimeReact */
+.p-editor-container>.ql-container {
+  height: calc(100% - 1.5rem) !important;
+}
+
+.p-tabview-panels {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.p-datatable {
+  border: 1px solid rgb(197, 203, 191);
+}
+
+.p-disabled,
+.p-disabled * {
+  pointer-events: auto !important;
+}
+
+.p-disabled,
+.p-component:disabled {
+  opacity: 1 !important;
+}
+
+/* System dialogs */
+
+.p-dialog {
+  border-radius: 0.5rem;
+  border: 1px solid #d0d0d0;
+  box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  /* Width is the responsibility of each dialog instance (style prop);
+     a global max-width here would clamp every wide management dialog. */
+}
+
+.p-dialog .p-dialog-header {
+  background-color: #fafafa;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.p-dialog .p-dialog-title {
+  font-size: 0.8125rem !important;
+  font-weight: 700;
+  color: #333333;
+}
+
+.p-dialog .p-dialog-header-icon {
+  color: #888888;
+  width: 1.375rem !important;
+  height: 1.375rem !important;
+  border-radius: 0.1875rem;
+}
+
+.p-dialog .p-dialog-header-icon .p-dialog-header-close-icon {
+  font-size: 0.6875rem !important;
+}
+
+.p-dialog .p-dialog-header-icon:hover {
+  background-color: #e0e0e0;
+  color: #333333;
+}
+
+.p-dialog .p-dialog-header-icon:focus {
+  box-shadow: none;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 1rem 0.875rem;
+  color: #555555;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.p-dialog .p-dialog-content p {
+  margin: 0;
+  font-size: 0.8125rem;
+}
+
+.p-dialog .p-dialog-footer {
+  background-color: #fafafa;
+  border-top: 1px solid #e0e0e0;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.p-dialog-mask {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Compact dropdown list to match the property panel's 0.75rem sizing. */
+.tsr-compact-dropdown-panel {
+  /* Portaled dropdowns must stay above the editor menu (z-index: 1101). */
+  z-index: 1200 !important;
+}
+
+.tsr-compact-dropdown-panel .p-dropdown-item {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  line-height: 1.2;
+}
+
+.tsr-compact-dropdown-panel .p-dropdown-items {
+  padding: 0.15rem 0;
+}

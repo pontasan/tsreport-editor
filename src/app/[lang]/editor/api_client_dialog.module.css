@@ -1,0 +1,32 @@
+/* API-client specific pieces; shared table styles live in admin_table.module.css. */
+
+.clientRow {
+    grid-template-columns: 11rem 1fr 17rem 3rem;
+}
+
+.grantRow {
+    grid-template-columns: 1fr 3rem;
+}
+
+.secretCell {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 0;
+}
+
+.secretText {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #4f5b66;
+}
+
+.grantPath {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    color: #212529;
+    overflow-wrap: anywhere;
+}

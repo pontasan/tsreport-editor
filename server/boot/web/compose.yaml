@@ -1,0 +1,64 @@
+services:
+  tsreport_editor_node:
+    build: ../../node/
+    image: tsreport_editor_node:1.0
+    user: "node"
+    working_dir: /var/node
+    init: true
+    ports:
+      - "52005:3000"
+      - "52006:52006"
+      - "52007:52007"
+      # - "9229:9229"
+    networks:
+      tsreport_editor_net:
+        ipv4_address: 172.31.0.10
+    volumes:
+      - ./dist/standalone:/var/node
+      - ../../nfs:/var/nfs
+    env_file:
+     - ./.env
+    #environment:
+    # - NODE_OPTIONS="--inspect=0.0.0.0:9229"
+    # Running cluster mode with --no-daemon fails; running pm2 list first makes it succeed.
+    # https://stackoverflow.com/questions/66296203/azure-app-service-linux-next-js-app-pm2-not-possible-to-set-cluster-mode
+    # Adding command pm2 list before pm2-runtime solves the issue, I suppose that the command pm2 list initializes the pm2 and sets the proper path for pm2-runtime.
+    # command: "bash -c 'node /var/node/server.js'"
+    command: "bash -c 'pm2 list && pm2 start --no-daemon'"
+  tsreport_editor_cron:
+    build: ../../crond/
+    image: tsreport_editor_cron:1.0
+    init: true
+    networks:
+      tsreport_editor_net:
+        ipv4_address: 172.31.0.40
+    volumes:
+      - ../../crond/schedule.txt:/var/crond/schedule.txt:ro
+    env_file:
+      - ./.env
+    depends_on:
+      - tsreport_editor_node
+  tsreport_editor_nginx:
+    build: ../../nginx/
+    image: tsreport_editor_nginx:1.0
+    init: true
+    ports:
+      - "52085:80"
+      - "52448:443"
+    networks:
+      tsreport_editor_net:
+        ipv4_address: 172.31.0.20
+    volumes:
+      - ../../nginx/cert:/var/cert
+      - ../../nginx/conf:/var/config
+      - ../../../logs/nginx:/var/log/nginx
+      - ../../nfs:/var/nfs
+    depends_on:
+      - tsreport_editor_node
+networks:
+  tsreport_editor_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.31.0.0/24"
+          gateway: 172.31.0.1
