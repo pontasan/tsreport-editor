@@ -71,20 +71,20 @@ flowchart LR
 
 החבילות המפורסמות `tsreport-core` ו-`tsreport-react` מותקנות מ-npm בהתאם לקובץ הנעילה של ה-Editor. לא נעשה שימוש במאגרים סמוכים.
 
-שחזור תלויות, בדיקת טיפוסים, בדיקות ובנייה של Next.js עבור ה-Editor מתבצעים אך ורק בתוך Docker. אין להריץ `npm install`, `npm ci`, `npx` או סקריפטי npm על `src/` בצד המארח.
+בפיתוח ובאימות רגילים ניתן להריץ פקודות npm גם ב-`src/` שבמארח. Docker נשאר מבודד: התלויות מותקנות מקובץ הנעילה בעת בניית תמונת Node.js, בעת הפעלת הקונטיינר לא מורצים `npm install` או `npm ci`, ו-Compose Watch מסנכרן רק קובצי מקור תוך החרגת `node_modules` של המארח.
 
 ### הפעלה
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up
+docker compose up --build --watch
 ```
 
 הפעלה ברקע:
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up -d
+docker compose up -d --build
 docker compose ps
 docker compose logs -f tsreport_editor_node
 ```
@@ -408,7 +408,7 @@ curl -sS http://localhost:52005/api/mcp \
 cd ../tsreport-editor/server
 docker compose down
 rm -rf db/pgdata/data
-docker compose up
+docker compose up --build --watch
 ```
 
 בהפעלה מחדש, ה-DDL של PostgreSQL מוחל, ובהפעלת האפליקציה נתוני ה-DB הראשוניים כגון חשבונות ראשוניים, לקוחות API ותגי פרסום נוצרים מחדש. קובצי סביבת עבודה לרגרסיה מתמלאים רק אם הם חסרים. אין למחוק את `pgdata` בזמן שקונטיינר ה-DB פעיל.

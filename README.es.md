@@ -71,20 +71,20 @@ flowchart LR
 
 Los paquetes publicados `tsreport-core` y `tsreport-react` se instalan desde npm según el lockfile del Editor. No se utilizan repositorios hermanos.
 
-La restauración de dependencias, la verificación de tipos, las pruebas y la compilación de Next.js del Editor se ejecutan únicamente dentro de Docker. No ejecute `npm install`, `npm ci`, `npx` ni scripts de npm en `src/` desde el host.
+Para el desarrollo y la verificación normales, también se pueden ejecutar comandos npm en `src/` del host. Docker permanece aislado: las dependencias se instalan desde el lockfile al construir la imagen de Node.js, el inicio del contenedor no ejecuta `npm install` ni `npm ci`, y Compose Watch sincroniza solo el código fuente, excluyendo `node_modules` del host.
 
 ### Puesta en marcha
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up
+docker compose up --build --watch
 ```
 
 Para iniciar en segundo plano:
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up -d
+docker compose up -d --build
 docker compose ps
 docker compose logs -f tsreport_editor_node
 ```
@@ -408,7 +408,7 @@ Si desea recrear por completo el PostgreSQL del entorno de desarrollo, detenga l
 cd ../tsreport-editor/server
 docker compose down
 rm -rf db/pgdata/data
-docker compose up
+docker compose up --build --watch
 ```
 
 Al reiniciar se aplica el DDL de PostgreSQL, y al arrancar la aplicación se recrean los datos iniciales de la base de datos, como las cuentas iniciales, los clientes API y las etiquetas publicadas. Los archivos del espacio de trabajo de regresión solo se reponen si faltan. No elimine `pgdata` mientras el contenedor de la base de datos esté en ejecución.

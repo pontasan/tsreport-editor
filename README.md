@@ -71,23 +71,25 @@ flowchart LR
 
 The published `tsreport-core` and `tsreport-react` packages are installed from npm by the Editor's lockfile. Sibling repository checkouts are not used by development, tests, or production builds.
 
-Dependency restoration, type checking, tests, and the Next.js build for the Editor all run only inside Docker. Do not run `npm install`, `npm ci`, `npx`, or npm scripts against `src/` on the host.
+Host-side npm commands in `src/` are supported for ordinary development and verification. Docker remains isolated: dependencies are installed from the lockfile when the Node.js image is built, container startup never runs `npm install` or `npm ci`, and Compose Watch synchronizes source files while excluding the host's `node_modules`.
 
 ### Startup
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up
+docker compose up --build --watch
 ```
 
-To start in the background:
+To start the containers in the background without source synchronization:
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up -d
+docker compose up -d --build
 docker compose ps
 docker compose logs -f tsreport_editor_node
 ```
+
+Run `docker compose watch --no-up` in another terminal when detached containers also need source synchronization.
 
 The development `server/compose.yaml` pins the Compose project name to `tsreport-editor-dev`, keeping containers and networks isolated from other products on the same host and from the production `tsreport-editor` project.
 
@@ -408,7 +410,7 @@ To fully recreate PostgreSQL in the development environment, stop the containers
 cd ../tsreport-editor/server
 docker compose down
 rm -rf db/pgdata/data
-docker compose up
+docker compose up --build --watch
 ```
 
 On restart, PostgreSQL's DDL is applied, and initial DB data such as initial accounts, API clients, and published tags is recreated when the application starts. Regression workspace files are only replenished if missing. Do not delete `pgdata` while the DB container is running.
@@ -618,6 +620,18 @@ Application settings are placed in `server/node/.env` for development, and `serv
 The overall MCP enabled state and dedicated port are managed as DB system settings from the admin screen. OAuth settings for external login and optional AI assistance settings are also managed via the admin screen/SystemProperty — do not write secret values into the README or source.
 
 ## Development and verification
+
+Host-side npm commands are independent of Docker and can be used normally:
+
+```sh
+cd ../tsreport-editor/src
+npm ci
+npx tsc --noEmit
+npm test
+npm run build
+```
+
+The Docker development server uses the dependencies captured in its image. Rebuild the image after changing `package.json` or `package-lock.json`; Compose Watch performs that rebuild automatically while the following command is running.
 
 ```sh
 cd ../tsreport-editor

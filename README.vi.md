@@ -71,20 +71,20 @@ flowchart LR
 
 Các gói `tsreport-core` và `tsreport-react` đã phát hành được cài từ npm theo lockfile của Editor. Không dùng repository liền kề.
 
-Việc khôi phục dependency, kiểm tra kiểu, chạy test, và build Next.js của Editor chỉ được thực hiện trong Docker. Không chạy `npm install`, `npm ci`, `npx`, hoặc npm script trên `src/` phía host.
+Trong quá trình phát triển và kiểm tra thông thường, có thể chạy các lệnh npm trong `src/` phía host. Docker vẫn được cô lập: dependency được cài từ lockfile khi build image Node.js, container không chạy `npm install` hoặc `npm ci` lúc khởi động, và Compose Watch chỉ đồng bộ mã nguồn, loại trừ `node_modules` của host.
 
 ### Khởi động
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up
+docker compose up --build --watch
 ```
 
 Khi khởi động ở chế độ nền:
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up -d
+docker compose up -d --build
 docker compose ps
 docker compose logs -f tsreport_editor_node
 ```
@@ -408,7 +408,7 @@ Khi muốn tạo lại hoàn toàn PostgreSQL của môi trường phát triển
 cd ../tsreport-editor/server
 docker compose down
 rm -rf db/pgdata/data
-docker compose up
+docker compose up --build --watch
 ```
 
 Khi khởi động lại, DDL của PostgreSQL sẽ được áp dụng, và dữ liệu ban đầu của DB như tài khoản ban đầu, API client, tag công khai, v.v. sẽ được tạo lại khi ứng dụng khởi động. Các tệp workspace dùng cho hồi quy chỉ được bổ sung nếu bị thiếu. Không được xóa `pgdata` trong khi container DB đang chạy.

@@ -21,8 +21,13 @@ services:
       - DB_PASS=postgres1234
     shm_size: 1.2gb
   tsreport_editor_node:
-    build: ./node/
-    image: tsreport_editor_node:1.0
+    build:
+      context: ..
+      dockerfile: server/node/Dockerfile
+      target: development
+      args:
+        APP_SOURCE: src
+    image: tsreport_editor_node_dev:1.0
     user: "node"
     working_dir: /var/node
     init: true
@@ -37,21 +42,31 @@ services:
       tsreport_editor_net:
         ipv4_address: 172.31.0.10
     volumes:
-      - ../src:/var/node
       - ../tests:/var/tests:ro
-      - /var/node/node_modules
       - ./nfs:/var/nfs
-      - .npm:/home/node/.npm
       - ./build/output:/var/output
     env_file:
      - ./node/.env
     environment:
       - REPORT_BATCH_TOKEN=${REPORT_BATCH_TOKEN:-tsreport-report-batch-local}
-    # Running cluster mode with --no-daemon fails; running pm2 list first makes it succeed.
-    # https://stackoverflow.com/questions/66296203/azure-app-service-linux-next-js-app-pm2-not-possible-to-set-cluster-mode
-    # Adding command pm2 list before pm2-runtime solves the issue, I suppose that the command pm2 list initializes the pm2 and sets the proper path for pm2-runtime.
-    # command: "tail -f /dev/null"
-    command: "bash -c 'npm install && npm run dev'"
+    command: "npm run dev"
+    develop:
+      watch:
+        - action: sync
+          path: ../src
+          target: /var/node
+          ignore:
+            - node_modules/
+            - .next/
+            - .tsreport-core/
+            - .tsreport-react/
+            - "*.tsbuildinfo"
+            - package.json
+            - package-lock.json
+        - action: rebuild
+          path: ../src/package.json
+        - action: rebuild
+          path: ../src/package-lock.json
   # Dedicated crond container that triggers the report print online batch on the
   # API server. The cadence lives entirely in the mounted crontab
   # (server/crond/schedule.txt), so it can be changed without rebuilding the image.

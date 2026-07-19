@@ -15,10 +15,10 @@ rsync -a --exclude=".next" --exclude="node_modules" ../src ./build
 # Remove containers explicitly before starting.
 cleanup
 # Start the build.
-docker compose --project-name tsreport-editor-build -f ./build/compose.yaml up --abort-on-container-exit --exit-code-from tsreport_editor_build
+docker compose --project-name tsreport-editor-build -f ./build/compose.yaml up --build --abort-on-container-exit --exit-code-from tsreport_editor_build
 # Use -P to preserve symlinks because some modules expect symlinks.
-cp -rfP ./build/src/.next/standalone ./boot/web/dist/
-cp -rfP ./build/src/.next/static ./boot/web/dist/standalone/.next/
+cp -rfP ./build/output/.next/standalone ./boot/web/dist/
+cp -rfP ./build/output/.next/static ./boot/web/dist/standalone/.next/
 cp -rfP ./build/src/public ./boot/web/dist/standalone/
 # First-boot seed data read by SystemInitLogic at process.cwd()/seed.
 cp -rfP ./build/src/seed ./boot/web/dist/standalone/

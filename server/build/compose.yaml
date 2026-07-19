@@ -1,19 +1,18 @@
 services:
   tsreport_editor_build:
-    build: ../node/
+    build:
+      context: ../..
+      dockerfile: server/node/Dockerfile
+      target: development
+      args:
+        APP_SOURCE: server/build/src
     image: tsreport_editor_build:1.0
     user: "node"
     working_dir: /var/node
     init: true
     volumes:
-      - ./src:/var/node
-      - /var/node/node_modules
       - ../nfs:/var/nfs
-      - ../.npm:/home/node/.npm
+      - ./output:/var/output
     env_file:
      - ../node/.env
-    # Running cluster mode with --no-daemon fails; running pm2 list first makes it succeed.
-    # https://stackoverflow.com/questions/66296203/azure-app-service-linux-next-js-app-pm2-not-possible-to-set-cluster-mode
-    # Adding command pm2 list before pm2-runtime solves the issue, I suppose that the command pm2 list initializes the pm2 and sets the proper path for pm2-runtime.
-    # command: "tail -f /dev/null"
-    command: "bash -c 'npm install && npm run build'"
+    command: "bash -c 'npm run build && rm -rf /var/output/.next && cp -a .next /var/output/'"

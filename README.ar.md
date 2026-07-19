@@ -71,20 +71,20 @@ flowchart LR
 
 تُثبَّت حزمتا `tsreport-core` و`tsreport-react` المنشورتان من npm وفق ملف القفل الخاص بالمحرر. لا تُستخدم مستودعات مجاورة.
 
-يجب تنفيذ استعادة الاعتماديات وفحص الأنواع (Type Checking) والاختبارات وبناء Next.js الخاصة بالمحرر داخل Docker فقط. لا تُشغّل `npm install` أو `npm ci` أو `npx` أو سكربتات npm على `src/` من جهاز الاستضافة (Host).
+يمكن تشغيل أوامر npm في `src/` على جهاز الاستضافة أثناء التطوير والتحقق المعتادين. يظل Docker معزولًا: تُثبَّت الاعتماديات من ملف القفل عند بناء صورة Node.js، ولا يُشغَّل `npm install` أو `npm ci` عند بدء الحاوية، ويزامن Compose Watch ملفات المصدر فقط مع استبعاد `node_modules` الخاص بالمضيف.
 
 ### التشغيل
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up
+docker compose up --build --watch
 ```
 
 للتشغيل في الخلفية:
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up -d
+docker compose up -d --build
 docker compose ps
 docker compose logs -f tsreport_editor_node
 ```
@@ -408,7 +408,7 @@ curl -sS http://localhost:52005/api/mcp \
 cd ../tsreport-editor/server
 docker compose down
 rm -rf db/pgdata/data
-docker compose up
+docker compose up --build --watch
 ```
 
 عند إعادة التشغيل، تُطبَّق تعريفات DDL الخاصة بـ PostgreSQL، وتُعاد إنشاء البيانات الأولية لقاعدة البيانات - كالحسابات الأولية وعملاء واجهة البرمجة ووسوم النشر - عند بدء تشغيل التطبيق. تُستكمَل ملفات مساحة عمل الانحدار فقط عند نقصانها. لا تحذف `pgdata` أثناء تشغيل حاوية قاعدة البيانات.

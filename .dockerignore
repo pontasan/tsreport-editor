@@ -1,0 +1,13 @@
+.git
+logs
+node_modules
+**/node_modules
+**/.next
+**/tsconfig.tsbuildinfo
+src/.tsreport-core
+src/.tsreport-react
+server/.npm
+server/db/pgdata
+server/nfs
+server/boot/web/dist
+server/build/output

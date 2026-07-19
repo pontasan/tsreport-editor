@@ -1,6 +1,9 @@
 services:
   tsreport_editor_node:
-    build: ../../node/
+    build:
+      context: ../../..
+      dockerfile: server/node/Dockerfile
+      target: runtime
     image: tsreport_editor_node:1.0
     user: "node"
     working_dir: /var/node

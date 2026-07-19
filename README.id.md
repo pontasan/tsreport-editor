@@ -71,20 +71,20 @@ flowchart LR
 
 Paket `tsreport-core` dan `tsreport-react` yang telah dipublikasikan diinstal dari npm sesuai lockfile Editor. Repositori di direktori sebelah tidak digunakan.
 
-Pemulihan dependensi, pemeriksaan tipe, pengujian, dan pembangunan Next.js untuk Editor hanya dijalankan di dalam Docker. Jangan menjalankan `npm install`, `npm ci`, `npx`, atau npm script pada `src/` di sisi host.
+Untuk pengembangan dan verifikasi biasa, perintah npm juga dapat dijalankan di `src/` pada host. Docker tetap terisolasi: dependensi dipasang dari lockfile saat image Node.js dibangun, startup container tidak menjalankan `npm install` atau `npm ci`, dan Compose Watch hanya menyinkronkan source sambil mengecualikan `node_modules` milik host.
 
 ### Menjalankan
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up
+docker compose up --build --watch
 ```
 
 Untuk menjalankan di latar belakang:
 
 ```sh
 cd ../tsreport-editor/server
-docker compose up -d
+docker compose up -d --build
 docker compose ps
 docker compose logs -f tsreport_editor_node
 ```
@@ -408,7 +408,7 @@ Jika ingin membuat ulang PostgreSQL lingkungan pengembangan sepenuhnya, hentikan
 cd ../tsreport-editor/server
 docker compose down
 rm -rf db/pgdata/data
-docker compose up
+docker compose up --build --watch
 ```
 
 Saat restart, DDL PostgreSQL diterapkan, dan data awal DB seperti akun awal, klien API, tag publikasi dibuat ulang saat aplikasi dijalankan. Berkas workspace regresi hanya ditambahkan jika kurang. Jangan menghapus `pgdata` saat container DB sedang berjalan.
