@@ -87,6 +87,8 @@ services:
     build: ./nginx/
     image: tsreport_editor_nginx:1.0
     init: true
+    depends_on:
+      - tsreport_editor_node
     ports:
       - "52085:80"
       - "52448:443"

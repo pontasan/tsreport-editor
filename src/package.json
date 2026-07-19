@@ -1,6 +1,6 @@
 {
   "name": "tsreport-editor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Browser-based report designer and report server built on tsreport-core: template editing with print-identical preview, workspace and font management, OAuth 2.0 print API with an async job queue, PDF import, and an MCP server for AI agents",
   "private": true,
   "packageManager": "npm@11.18.0",
